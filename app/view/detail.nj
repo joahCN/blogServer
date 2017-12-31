@@ -1,0 +1,10 @@
+{% extends "./layout.nj" %}
+
+{% block mainContent %}
+<div class="center-block detail-content__maxWith">
+    <h3 class="text-center page-header">{{article.title}}</h3>
+    <div class="block detail-article-content">
+        {{article.content | safe}}
+    </div>
+</div>
+{% endblock %}

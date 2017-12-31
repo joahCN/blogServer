@@ -2,10 +2,11 @@
 const path = require('path');
 
 module.exports = appInfo => {
-  const config = exports = {};
+  const config = {};
 
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1512888036899_9309';
+  config.imagePath = path.join(appInfo.baseDir, 'app/public/images');
 
   // add your config here
   config.middleware = [];
@@ -18,8 +19,6 @@ module.exports = appInfo => {
       port: '63817',
       // 用户名
       user: 'root',
-      // 密码
-      password: '888**BBBBBDIKce121z**',
       // 数据库名
       database: 'blog',
     },

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>ZHC's Blog</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="/public/index.css" />
+</head>
+<body>
+<div class="header-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <a class="blog-logo" href="/"><h1>ZHC's Blog</h1></a>
+            </div>
+            <div class="col-md-8">
+                <ul class="nav nav-pills header-nav" role="tablist">
+                    {% for category in categories%}
+                    <li role="presentation" class="{{'active' if category.id == activeCategory }}"><a href="/category/{{category.id}}">{{category.name}}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container article-container">
+    {% block mainContent %}
+        记录生活,记录爱。敬请期待!
+    {% endblock %}
+</div>
+
+<div class="blog-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                @2018. 本博客保留所有权利。
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+
+</body>
+</html>
