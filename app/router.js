@@ -10,7 +10,7 @@ module.exports = app => {
 
   // app.passport.mount('github');
   const github = app.passport.authenticate('github', {
-    successRedirect: `${config.passportCallbackDomain}/`,
+    successRedirect: `${config.passportCallbackDomain}/admin`,
     loginURL: `${config.passportCallbackDomain}/passport/github`,
     callbackURL: `${config.passportCallbackDomain}/passport/github/callback`
   });
