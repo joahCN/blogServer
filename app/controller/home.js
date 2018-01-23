@@ -40,6 +40,10 @@ class HomeController extends Controller {
     
     await this.ctx.render('detail.nj', {article: article || {}, categories});
   }
+  
+  async admin() {
+    await this.ctx.render('index.html');
+  }
 
 }
 

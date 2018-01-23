@@ -51,6 +51,14 @@ a.blog-logo {
     max-width: 100%;
 }
 
+.detail-header-authorInfo {
+    color: #888;
+}
+
+.detail-header-meta {
+    margin-right: 10px;
+}
+
 .article-subContent {
     height: 60px;
     text-overflow: ellipsis;

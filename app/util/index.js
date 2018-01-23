@@ -34,3 +34,14 @@ exports.extractTextFromHtml = function(html, subTextAmount = 120) {
     });
     return text.substr(0, subTextAmount)
 };
+
+exports.getDefaultCoverPage = function(category) {
+    const config = {
+        1: 'JavaScript-default.jpeg',
+        2: 'html-css.jpg',
+        3: 'frontEnd.jpeg',
+        4: 'life.jpeg'
+    };
+    const serverUrl = "/public/images/";
+    return serverUrl + config[category];
+};

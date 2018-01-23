@@ -2,12 +2,16 @@
 var fs = require('fs');
 var path = require('path');
 var utils = require('../util');
+var moment = require('moment');
 
 const Controller = require('egg').Controller;
 
 class ArticleController extends Controller {
   async list() {
-    const results = await this.ctx.service.article.queryArticles({});
+    //query login user's article list
+    const results = await this.ctx.service.article.queryArticles({
+      where: {authorId: this.ctx.user.id}
+    });
     this.ctx.body = {
       list: results,
     };
@@ -24,19 +28,24 @@ class ArticleController extends Controller {
 
   async create() {
     const ctx = this.ctx;
+    const user = ctx.user;
     const body = ctx.request.body;
     const { title, content, id, type, coverPage } = body;
     const article = {
       title,
       content,
       type,
-      time: Date.now(),
+      time: moment().format("YYYY-MM-DD, h:mm:ss a"),
       subContent: utils.extractTextFromHtml(content),
+      authorId: user.id,
+      author: user.name
     };
     if(coverPage) {
       article.coverPage = utils.getSmallImagePath(coverPage);
       let imageName = utils.extractImageName(coverPage);
       utils.manipulateImage(path.join(this.config.imagePath, imageName));
+    } else {
+      article.coverPage = utils.getDefaultCoverPage(type);
     }
     let result;
     if (id) {
@@ -74,11 +83,6 @@ class ArticleController extends Controller {
       while ((part = await parts()) != null) {
         if (part.length) {
           ctx.logger.debug('arrays are busboy fields: ');
-          // // arrays are busboy fields
-          // console.log('field: ' + part[0]);
-          // console.log('value: ' + part[1]);
-          // console.log('valueTruncated: ' + part[2]);
-          // console.log('fieldnameTruncated: ' + part[3]);
         } else {
           if (!part.filename) {
             // user click `upload` before choose a file,
@@ -91,12 +95,14 @@ class ArticleController extends Controller {
           ctx.logger.debug("upload file: ");
           ctx.logger.debug("filename: " + part.fieldname + " | mime:" + part.mime + " | encoding:" + part.encoding);
 
-          let result, diskPath;
+          let result, diskPath, savedFileName, dotIndex;
           try {
-            diskPath = path.join(this.config.imagePath, part.filename);
+            dotIndex = part.filename.lastIndexOf(".");
+            savedFileName = part.filename.substr(0, dotIndex) + Date.now() + part.filename.substr(dotIndex);
+            diskPath = path.join(this.config.imagePath, savedFileName);
             uploadedFiles.push({
               name: part.filename,
-              url: '/public/images/'+part.filename
+              url: '/public/images/' + savedFileName
             });
             part.pipe(fs.createWriteStream(diskPath))
           } catch (err) {
