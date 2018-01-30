@@ -10,9 +10,13 @@ class HomeController extends Controller {
       columns: ['id', 'title', 'coverPage', 'type', 'subContent'],
     };
 
+    let whereCondition = {published: 1};
+
     if(categoryId) {
-      queryConditions.where = {type: categoryId};
+      whereCondition.type = categoryId;
     }
+
+    queryConditions.where = whereCondition;
 
     const results = await this.ctx.service.article.queryArticles(queryConditions);
     const categories = await this.ctx.service.category.getCategories();

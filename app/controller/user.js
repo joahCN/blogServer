@@ -35,6 +35,11 @@ class UserController extends Controller {
         }
     }
 
+    async logout() {
+        this.ctx.logout();
+        this.ctx.redirect("/");
+    }
+
 }
 
 module.exports = UserController;

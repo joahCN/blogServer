@@ -20,6 +20,7 @@ module.exports = app => {
   router.get('/admin', controller.home.admin);
   router.get('/login/:provider', controller.user.login);
   router.get('/user', controller.user.getUser);
+  router.get('/logout', controller.user.logout);
 
   router.get('/', controller.home.index);
   router.get('/detail/:id', controller.home.detail);

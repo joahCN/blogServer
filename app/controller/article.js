@@ -30,11 +30,12 @@ class ArticleController extends Controller {
     const ctx = this.ctx;
     const user = ctx.user;
     const body = ctx.request.body;
-    const { title, content, id, type, coverPage } = body;
+    const { title, content, id, type, coverPage, published } = body;
     const article = {
       title,
       content,
       type,
+      published,
       time: moment().format("YYYY-MM-DD, h:mm:ss a"),
       subContent: utils.extractTextFromHtml(content),
       authorId: user.id,
